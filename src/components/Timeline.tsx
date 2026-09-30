@@ -16,50 +16,50 @@ function Timeline() {
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
             contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="2022 - present"
+            date="September 2026 - November 2026"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Technology Consultant</h3>
-            <h4 className="vertical-timeline-element-subtitle">Dallas, TX</h4>
+            <h3 className="vertical-timeline-element-title">Data Science Immersive Fellow</h3>
+            <h4 className="vertical-timeline-element-subtitle">Bahrain, Manama</h4>
             <p>
-              Full-stack Web Development, GenAI/LLM, Project Management, Business Development
+              Data Analysis, Machine Learning, Python, Data Visualization
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2022"
+            date="July 2025 - October 2025"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Full Stack Engineer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">IT trainee</h3>
+            <h4 className="vertical-timeline-element-subtitle">Juffair Sqaure, Bahrain</h4>
             <p>
-              Frontend Development, Backend Development, User Experience, Team Leading
+              Application Development, Data Analysis, Technical Support, Technology Research
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2021 - 2021"
+            date="July 2024 - September 2024  "
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Staff Engineer Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">Business Analyst and Testing</h3>
+            <h4 className="vertical-timeline-element-subtitle">Remote, USA</h4>
             <p>
-              Full-stack Development, API Development, User Experience
+              Business Analysis, Software Testing, Requirements Analysis, Technical Documentation
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2020"
+            date="January 2024"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Data Analyst Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Tokyo, Japan</h4>
+            <h3 className="vertical-timeline-element-title">Wearable Technology Workshop (MISTI)</h3>
+            <h4 className="vertical-timeline-element-subtitle">Riffa, Bahrain</h4>
             <p>
-              Automation, Data Governance, Statistical Analysis
+              CAD Design, Fusion 360, Arduino, C++, Python, 3D Printing
             </p>
           </VerticalTimelineElement>
         </VerticalTimeline>
