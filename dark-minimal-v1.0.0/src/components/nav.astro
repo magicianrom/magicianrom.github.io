@@ -40,10 +40,11 @@ const navItems: NavItem[] = [
                 href={item.href}
                 class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"
               >
-                <div class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block" />
-                <span class="md:hidden flex items-center justify-center w-6 h-6">
-                  <fragment set:html={item.icon} />
-                </span>
+                <div class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[var(--sec)] nav-indicator hidden md:block" />
+                <span
+                  class="md:hidden flex items-center justify-center w-6 h-6"
+                  set:html={item.icon}
+                />
                 <span class="hidden md:inline-block">{item.label}</span>
                 <span class="md:hidden">{item.label}</span>
               </a>
@@ -54,6 +55,7 @@ const navItems: NavItem[] = [
     </div>
   </nav>
 </div>
+
 <style>
   nav {
     transform: translateX(-50%);
@@ -107,23 +109,26 @@ const navItems: NavItem[] = [
   let rafId: number | null = null;
 
   function updateNav() {
+    if (!nav) return;
+
     if (window.scrollY > 0) {
-      nav?.classList.add("scrolling");
-
-      const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
-      const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
-
-      const minWidth = 528;
-      const maxWidth = window.innerWidth * 0.8;
-      const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
+      nav.classList.add("scrolling");
 
       if (window.innerWidth >= 768) {
-        nav?.style.setProperty("width", `${currentWidth}px`);
+        const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
+        const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
+
+        const minWidth = 528;
+        const maxWidth = window.innerWidth * 0.8;
+        const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
+
+        nav.style.setProperty("width", `${currentWidth}px`);
       }
     } else {
-      nav?.classList.remove("scrolling");
-      nav?.style.setProperty("width", "80%");
+      nav.classList.remove("scrolling");
+      nav.style.setProperty("width", "80%");
     }
+
     rafId = null;
   }
 
@@ -137,13 +142,17 @@ const navItems: NavItem[] = [
     { passive: true }
   );
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
+  updateNav();
+
+  nav?.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
       const target = e.currentTarget as HTMLAnchorElement;
       const targetId = target.getAttribute("href")?.substring(1) || "";
       const targetElement = document.getElementById(targetId);
+
       if (targetElement) {
+        e.preventDefault();
+
         targetElement.scrollIntoView({
           behavior: "smooth",
         });
@@ -151,40 +160,30 @@ const navItems: NavItem[] = [
     });
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-    const observerOptions = { threshold: 0.6 };
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = nav?.querySelectorAll("a[href^='#']");
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => link.classList.remove("active"));
-          const id = entry.target.getAttribute("id");
-          const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
-        }
-      });
-    };
+  const observerOptions = {
+    threshold: 0.6,
+  };
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-    sections.forEach((section) => observer.observe(section));
-  });
+  const observerCallback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks?.forEach((link) => link.classList.remove("active"));
+
+        const id = entry.target.getAttribute("id");
+        const activeLink = nav?.querySelector(`a[href="#${id}"]`);
+
+        activeLink?.classList.add("active");
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    observerCallback,
+    observerOptions
+  );
+
+  sections.forEach((section) => observer.observe(section));
 </script>
-
-<style>
-  @media (max-width: 767px) {
-    body {
-      padding-bottom: 70px;
-    }
-  }
-
-  nav a.active {
-    color: white !important;
-  }
-</style>

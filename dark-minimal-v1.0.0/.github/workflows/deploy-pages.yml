@@ -1,3 +1,4 @@
+
 name: Deploy GitHub Pages
 
 on:
@@ -26,24 +27,29 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
+          cache-dependency-path: dark-minimal-v1.0.0/pnpm-lock.yaml
 
       - name: Install dependencies
+        working-directory: dark-minimal-v1.0.0
         run: pnpm install --frozen-lockfile
 
       - name: Build
+        working-directory: dark-minimal-v1.0.0
         run: pnpm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: ./dist
+          path: dark-minimal-v1.0.0/dist
 
   deploy:
     needs: build
